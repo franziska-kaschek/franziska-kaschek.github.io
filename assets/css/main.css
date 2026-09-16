@@ -1737,3 +1737,27 @@ body[data-theme="dark"] .chroma .mf {
   color: white;
   font-size: 1rem;
 }
+
+.illustration-hidden {
+  display: none;
+}
+
+.illustrations-toggle {
+  margin-top: 1.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 999px;
+
+  background: var(--color-surface);
+  color: var(--color-primary);
+
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+
+  box-shadow: var(--shadow-soft);
+}
+
+.illustrations-toggle:hover {
+  color: var(--color-highlight);
+}
