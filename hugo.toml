@@ -1,0 +1,38 @@
+baseURL = 'http://localhost:1313/'
+languageCode = 'en-us'
+title = 'Franziska Kaschek'
+theme = 'celadon'
+enableRobotsTXT = true
+
+[params]
+  description = 'Computational Archaeologist weaving ancient history with modern algorithms.'
+  email = 'alex@example.com'
+  location = 'Tampa, USA'
+
+[params.homepage]
+  sections = ["profile", "projects", "illustrations", "about", "contact"]
+
+  [params.homepage.profile]
+    enable = true
+    layout = "hero"
+    showInMenu = false
+
+  [params.homepage.projects]
+    enable = true
+    layout = "cards"
+    title = "Projects"
+
+  [params.homepage.illustrations]
+    enable = true
+    layout = "illustrations"
+    title = "Illustrations"
+
+  [params.homepage.about]
+    enable = true
+    layout = "text"
+    title = "About"
+
+  [params.homepage.contact]
+    enable = true
+    layout = "contact"
+    title = "Contact"

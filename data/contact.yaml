@@ -1,0 +1,8 @@
+- label: "Email"
+  url: "mailto:franziska@kaschel.com"
+
+- label: "GitHub"
+  url: "https://github.com/deinname"
+
+- label: "LinkedIn"
+  url: "https://linkedin.com/deinname"

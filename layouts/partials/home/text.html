@@ -1,0 +1,20 @@
+{{ $section := .Section }}
+{{ $config := .Config }}
+{{ $data := .Data }}
+
+<section id="{{ $section }}" class="text-section section-block">
+
+  <div class="section-heading">
+    <span class="bar"></span>
+    <div>
+      <h2>{{ default "About" $config.title }}</h2>
+    </div>
+  </div>
+
+  <div class="about-content">
+    {{ with $data.text }}
+      {{ . | markdownify }}
+    {{ end }}
+  </div>
+
+</section>

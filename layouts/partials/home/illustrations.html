@@ -1,0 +1,58 @@
+{{ $section := .Section }}
+{{ $config := .Config }}
+{{ $items := .Data }}
+
+<section id="{{ $section }}" class="illustrations-section section-block">
+
+  <div class="section-heading">
+    <span class="bar"></span>
+    <div>
+      <h2>{{ default "Illustrations" $config.title }}</h2>
+    </div>
+  </div>
+
+  <div class="illustrations-grid">
+
+    {{ range $items }}
+
+      <button
+        type="button"
+        class="illustration-card"
+        data-image="{{ .image | relURL }}"
+        data-title="{{ .title }}"
+        aria-label="View {{ .title }} larger"
+      >
+        <img
+          src="{{ .image | relURL }}"
+          alt="{{ .title }}"
+          loading="lazy"
+        >
+      </button>
+
+    {{ end }}
+
+  </div>
+
+</section>
+
+<div
+  id="illustration-lightbox"
+  class="illustration-lightbox"
+  aria-hidden="true"
+>
+  <button
+    type="button"
+    class="lightbox-close"
+    aria-label="Close image"
+  >
+    ×
+  </button>
+
+  <img
+    id="lightbox-image"
+    src=""
+    alt=""
+  >
+
+  <p id="lightbox-title"></p>
+</div>

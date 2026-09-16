@@ -1,0 +1,14 @@
+- title: "Unsupervised Anomaly Detection Tool for Shearographic Image Analysis"
+  summary: >
+    Development of a computer vision pipeline that automatically identifies, localizes, 
+    and visualizes structural anomalies in images by utilizing the unsupervised learning 
+    algorithm RD++. The entire pipeline was specifically validated and tested on a shearographic 
+    dataset.
+  image: "/images/projects/polygons.png"
+  tags:
+    - unsupervised anomaly detection
+    - shearography
+    - rd++
+  links:
+    - label: "GitHub"
+      url: "https://github.com/..."

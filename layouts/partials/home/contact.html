@@ -1,0 +1,103 @@
+{{ $section := .Section }}
+{{ $config := .Config }}
+{{ $items := .Data }}
+
+<section id="{{ $section }}" class="contact-section section-block">
+
+  <div class="section-heading">
+    <span class="bar"></span>
+    <div>
+      <h2>{{ default "Contact" $config.title }}</h2>
+    </div>
+  </div>
+
+  <div class="contact-content">
+
+    <p>Have a project in mind?</p>
+
+    <p>
+      I'm always interested in hearing about new projects, collaborations and ideas.
+    </p>
+
+    <div class="contact-links">
+
+      {{ range $items }}
+
+        <a
+          href="{{ .url }}"
+          class="contact-link"
+          {{ if hasPrefix .url "http" }}
+            target="_blank"
+            rel="noopener"
+          {{ end }}
+        >
+          <span class="contact-label">{{ .label }}</span>
+          <span class="contact-arrow">↗</span>
+        </a>
+
+      {{ end }}
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<style>
+
+.contact-section {
+  padding-bottom: 80px;
+}
+
+.contact-content {
+  max-width: 650px;
+}
+
+.contact-content h3 {
+  margin: 0 0 15px;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.contact-content p {
+  margin: 0 0 35px;
+  line-height: 1.7;
+  max-width: 550px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid currentColor;
+}
+
+.contact-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px 5px;
+
+  border-bottom: 1px solid currentColor;
+
+  text-decoration: none;
+  color: inherit;
+
+  transition: padding 0.2s ease;
+}
+
+.contact-link:hover {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.contact-label {
+  font-size: 1.1rem;
+}
+
+.contact-arrow {
+  font-size: 1.2rem;
+}
+
+</style>
