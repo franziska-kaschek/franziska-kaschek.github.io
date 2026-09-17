@@ -1,0 +1,110 @@
+{{ $section := .Section }}
+{{ $config := .Config }}
+{{ $items := .Data }}
+
+<section id="{{ $section }}" class="illustrations-section section-block">
+
+  <div class="section-heading">
+    <span class="bar"></span>
+    <div>
+      <h2>{{ default "Illustrations" $config.title }}</h2>
+    </div>
+  </div>
+
+  {{ $categories := slice }}
+
+  {{ range $items }}
+    {{ if .category }}
+      {{ if not (in $categories .category) }}
+        {{ $categories = $categories | append .category }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ range $category := $categories }}
+
+    {{ $categoryItems := where $items "category" $category }}
+
+    <div class="illustration-category">
+
+      <h3 class="illustration-category-title">
+        {{ $category }}
+      </h3>
+
+      <div class="illustrations-grid">
+
+        {{ range $index, $item := $categoryItems }}
+
+          <button
+            type="button"
+            class="illustration-card {{ if ge $index 4 }}illustration-hidden{{ end }}"
+            data-image="{{ $item.image | relURL }}"
+            data-title="{{ $item.title }}"
+            aria-label="View {{ $item.title }} larger"
+          >
+            <img
+              src="{{ $item.image | relURL }}"
+              alt="{{ $item.title }}"
+              loading="lazy"
+            >
+          </button>
+
+        {{ end }}
+
+      </div>
+
+      {{ if gt (len $categoryItems) 4 }}
+
+        <button
+          type="button"
+          class="illustrations-toggle"
+          data-expanded="false"
+        >
+          Show more
+        </button>
+
+      {{ end }}
+
+    </div>
+
+  {{ end }}
+
+</section>
+
+<div
+  id="illustration-lightbox"
+  class="illustration-lightbox"
+  aria-hidden="true"
+>
+  <button
+    type="button"
+    class="lightbox-prev"
+    aria-label="Previous image"
+  >
+    ‹
+  </button>
+
+  <button
+    type="button"
+    class="lightbox-close"
+    aria-label="Close image"
+  >
+    ×
+  </button>
+
+  <img
+    id="lightbox-image"
+    src=""
+    alt=""
+  >
+
+  <p id="lightbox-title"></p>
+
+  <button
+    type="button"
+    class="lightbox-next"
+    aria-label="Next image"
+  >
+    ›
+  </button>
+</div>

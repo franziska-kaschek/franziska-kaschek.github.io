@@ -1,31 +1,39 @@
 - title: "Neckar Valley"
   description: "Woodprint of the Neckar valley."
+  category: "Illustrations"
   image: "/images/illustrations/woodprint.jpg"
 
 - title: "Dragon Flight over Hohentübingen Castle"
   description: "Watercolor depicting a girl wearing traditional Black Forest dress, flying on a dragon over Hohentübingen Castle."
+  category: "Illustrations"
   image: "/images/illustrations/dragon.jpg"
 
 - title: "Kabuki Actor"
   description: "Pencil drawing of a Kabuki actor."
+  category: "Illustrations"
   image: "/images/illustrations/kabuki.jpg"
 
 - title: "The Earthworm with an Umbrella, Charm and Bowler Hat"
   description: "Pencil drawing of an earthworm with an umbrella and a bowler hat."
+  category: "Illustrations"
   image: "/images/illustrations/worm.jpg"
 
 - title: "The Beast of the Forest"
   description: "Pencil drawing of a forest scene with a beast and a knight."
+  category: "Illustrations"
   image: "/images/illustrations/beast.jpg"
 
 - title: "Bad Monkey Blues"
   description: "olored-pencil drawing of a monkey playing the saxophone and a colorful crowd."
+  category: "Illustrations"
   image: "/images/illustrations/monkey.jpg"
 
 - title: "Forest Pirate"
   description: "Colored-pencil drawing depicting a forest pirate."
+  category: "Illustrations"
   image: "/images/illustrations/woodpirat.jpg"
 
 - title: "Romanian Unicorn"
   description: "Watercolor of green unicorn"
+  category: "Illustrations"
   image: "/images/illustrations/unicorn.jpg"

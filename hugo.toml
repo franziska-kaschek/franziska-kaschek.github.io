@@ -10,7 +10,7 @@ enableRobotsTXT = true
   location = 'Tampa, USA'
 
 [params.homepage]
-  sections = ["profile", "projects", "illustrations", "about", "contact"]
+  sections = ["profile", "projects", "artwork", "about", "contact"]
 
   [params.homepage.profile]
     enable = true
@@ -22,10 +22,10 @@ enableRobotsTXT = true
     layout = "cards"
     title = "Projects"
 
-  [params.homepage.illustrations]
+  [params.homepage.artwork]
     enable = true
-    layout = "illustrations"
-    title = "Illustrations"
+    layout = "artwork"
+    title = "Artwork"
 
   [params.homepage.about]
     enable = true

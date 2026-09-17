@@ -12,3 +12,19 @@
   links:
     - label: "GitHub"
       url: "https://github.com/..."
+
+
+- title: "KanjiReader: Mobile App for Automatic Japanese Text Recognition and Translation"  
+  summary: >
+    Development of a mobile application for the automated recognition and translation of 
+    Japanese text in images using React Native and Expo. The app can also automatically 
+    add furigana to Japanese text.
+  image: "/images/projects/kanjireader.png"
+  tags:
+    - app development
+    - react native
+    - expo
+    - japanese
+  links:
+    - label: "GitHub"
+      url: "https://github.com/..."
