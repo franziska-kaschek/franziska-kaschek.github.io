@@ -11,45 +11,58 @@
     </div>
   </div>
 
-<div class="illustrations-grid">
+  <div class="illustrations-grid">
 
-  {{ range $index, $item := $items }}
+    {{ range $index, $item := $items }}
 
+      <button
+        type="button"
+        class="illustration-card {{ if ge $index 4 }}illustration-hidden{{ end }}"
+        data-image="{{ $item.image | relURL }}"
+        data-title="{{ $item.title }}"
+        aria-label="View {{ $item.title }} larger"
+      >
+        <img
+          src="{{ $item.image | relURL }}"
+          alt="{{ $item.title }}"
+          loading="lazy"
+        >
+      </button>
+
+    {{ end }}
+
+  </div>
+
+  {{ if gt (len $items) 4 }}
     <button
       type="button"
-      class="illustration-card {{ if ge $index 4 }}illustration-hidden{{ end }}"
-      data-image="{{ $item.image | relURL }}"
-      data-title="{{ $item.title }}"
-      aria-label="View {{ $item.title }} larger"
+      class="illustrations-toggle"
+      id="illustrations-toggle"
+      data-expanded="false"
     >
-      <img
-        src="{{ $item.image | relURL }}"
-        alt="{{ $item.title }}"
-        loading="lazy"
-      >
+      Show more
     </button>
-
   {{ end }}
 
-</div>
-
-{{ if gt (len $items) 4 }}
-  <button
-    type="button"
-    class="illustrations-toggle"
-    id="illustrations-toggle"
-  >
-    Show more
-  </button>
-{{ end }}
-
 </section>
+
+
+<!-- Lightbox -->
 
 <div
   id="illustration-lightbox"
   class="illustration-lightbox"
   aria-hidden="true"
 >
+
+  <button
+    type="button"
+    class="lightbox-prev"
+    aria-label="Previous image"
+  >
+    ‹
+  </button>
+
   <button
     type="button"
     class="lightbox-close"
@@ -65,4 +78,13 @@
   >
 
   <p id="lightbox-title"></p>
+
+  <button
+    type="button"
+    class="lightbox-next"
+    aria-label="Next image"
+  >
+    ›
+  </button>
+
 </div>
