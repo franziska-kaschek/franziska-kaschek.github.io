@@ -24,14 +24,17 @@
     );
     let currentIndex = 0;
     function showImage(index) {
-      if (cards.length === 0 || !image || !title) {
+      if (!cards.length) {
+        return;
+      }
+      if (!image || !title) {
         return;
       }
       currentIndex = (index + cards.length) % cards.length;
       const card = cards[currentIndex];
-      image.src = card.dataset.image || "";
-      image.alt = card.dataset.title || "";
-      title.textContent = card.dataset.title || "";
+      image.src = card.getAttribute("data-image") || "";
+      image.alt = card.getAttribute("data-title") || "";
+      title.textContent = card.getAttribute("data-title") || "";
     }
     function openLightbox(index) {
       if (!lightbox) {
@@ -45,7 +48,7 @@
       );
     }
     function closeLightbox() {
-      if (!lightbox || !image || !title) {
+      if (!lightbox) {
         return;
       }
       lightbox.classList.remove("is-open");
@@ -53,39 +56,52 @@
         "aria-hidden",
         "true"
       );
-      image.src = "";
-      image.alt = "";
-      title.textContent = "";
+      if (image) {
+        image.src = "";
+        image.alt = "";
+      }
+      if (title) {
+        title.textContent = "";
+      }
     }
-    if (lightbox && image && title && closeButton && prevButton && nextButton && cards.length > 0) {
-      cards.forEach(function(card, index) {
-        card.addEventListener(
-          "click",
-          function() {
-            openLightbox(index);
-          }
-        );
+    cards.forEach(function(card, index) {
+      card.addEventListener("click", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        openLightbox(index);
       });
+    });
+    if (prevButton) {
       prevButton.addEventListener(
         "click",
         function(event) {
+          event.preventDefault();
           event.stopPropagation();
           showImage(currentIndex - 1);
         }
       );
+    }
+    if (nextButton) {
       nextButton.addEventListener(
         "click",
         function(event) {
+          event.preventDefault();
           event.stopPropagation();
           showImage(currentIndex + 1);
         }
       );
+    }
+    if (closeButton) {
       closeButton.addEventListener(
         "click",
-        function() {
+        function(event) {
+          event.preventDefault();
+          event.stopPropagation();
           closeLightbox();
         }
       );
+    }
+    if (lightbox) {
       lightbox.addEventListener(
         "click",
         function(event) {
@@ -94,59 +110,61 @@
           }
         }
       );
-      document.addEventListener(
-        "keydown",
-        function(event) {
-          if (!lightbox.classList.contains("is-open")) {
-            return;
-          }
-          if (event.key === "ArrowLeft") {
-            event.preventDefault();
-            showImage(currentIndex - 1);
-          }
-          if (event.key === "ArrowRight") {
-            event.preventDefault();
-            showImage(currentIndex + 1);
-          }
-          if (event.key === "Escape") {
-            closeLightbox();
-          }
-        }
-      );
     }
-    document.querySelectorAll(".illustration-category").forEach(function(category) {
-      const toggleButton = category.querySelector(
-        ".illustrations-toggle"
-      );
-      if (!toggleButton) {
-        return;
+    document.addEventListener(
+      "keydown",
+      function(event) {
+        if (!lightbox || !lightbox.classList.contains("is-open")) {
+          return;
+        }
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          showImage(currentIndex - 1);
+        }
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          showImage(currentIndex + 1);
+        }
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeLightbox();
+        }
       }
-      const categoryCards = category.querySelectorAll(
-        ".illustration-card"
+    );
+    const toggleButton = document.querySelector(
+      ".illustrations-toggle"
+    );
+    if (toggleButton) {
+      const hiddenItems = document.querySelectorAll(
+        ".illustration-preview-hidden"
       );
       toggleButton.addEventListener(
         "click",
         function() {
           const expanded = toggleButton.dataset.expanded === "true";
-          categoryCards.forEach(
-            function(card, index) {
-              if (index >= 4) {
-                if (expanded) {
-                  card.classList.add(
-                    "illustration-hidden"
-                  );
-                } else {
-                  card.classList.remove(
-                    "illustration-hidden"
-                  );
-                }
+          if (expanded) {
+            hiddenItems.forEach(
+              function(item) {
+                item.classList.add(
+                  "illustration-preview-hidden"
+                );
               }
-            }
-          );
-          toggleButton.dataset.expanded = expanded ? "false" : "true";
-          toggleButton.textContent = expanded ? "Show more" : "Show less";
+            );
+            toggleButton.dataset.expanded = "false";
+            toggleButton.textContent = "Show more";
+          } else {
+            hiddenItems.forEach(
+              function(item) {
+                item.classList.remove(
+                  "illustration-preview-hidden"
+                );
+              }
+            );
+            toggleButton.dataset.expanded = "true";
+            toggleButton.textContent = "Show less";
+          }
         }
       );
-    });
+    }
   });
 })();

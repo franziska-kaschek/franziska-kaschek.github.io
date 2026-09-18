@@ -1,8 +1,14 @@
 text: |
-  I'm **Franziska**, a programmer and illustrator.
+  Hi, I’m **Franziska** — a trained computer scientist and self-taught illustrator.
 
-  My work sits somewhere between technology, visual storytelling
-  and creative experimentation.
+  I enjoy moving between two worlds: the structured logic of software development and the free, tactile process of drawing by hand.
 
-  I enjoy building things with code and exploring ideas through
-  illustration.
+  Here I share what I’m working on and what moves me.
+
+  #### IT-Skills
+  Python · Java · Machine Learning · Computer Vision · Web Development · Git · Linux
+
+  #### Art-Skills
+  Traditional Drawing & Painting · Floral Pattern Design
+
+image: "images/about/profil2.jpg"   # ← Pfad zu deinem Bild anpassen

@@ -21,11 +21,13 @@
     {{ end }}
   {{ end }}
 
-  {{ range $category := $categories }}
+  {{ range $categoryIndex, $category := $categories }}
 
     {{ $categoryItems := where $items "category" $category }}
 
-    <div class="illustration-category">
+    <div
+      class="illustration-category {{ if gt $categoryIndex 0 }}illustration-preview-hidden{{ end }}"
+    >
 
       <h3 class="illustration-category-title">
         {{ $category }}
@@ -37,7 +39,7 @@
 
           <button
             type="button"
-            class="illustration-card {{ if ge $index 4 }}illustration-hidden{{ end }}"
+            class="illustration-card {{ if and (eq $categoryIndex 0) (ge $index 4) }}illustration-preview-hidden{{ end }}"
             data-image="{{ $item.image | relURL }}"
             data-title="{{ $item.title }}"
             aria-label="View {{ $item.title }} larger"
@@ -53,58 +55,33 @@
 
       </div>
 
-      {{ if gt (len $categoryItems) 4 }}
-
-        <button
-          type="button"
-          class="illustrations-toggle"
-          data-expanded="false"
-        >
-          Show more
-        </button>
-
-      {{ end }}
-
     </div>
 
   {{ end }}
 
+  <button
+    type="button"
+    class="illustrations-toggle"
+    data-expanded="false"
+  >
+    Show more
+  </button>
+
+  <!-- Illustration Lightbox -->
+  <div
+    id="illustration-lightbox"
+    class="illustration-lightbox"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Illustration preview"
+  >
+    <button type="button" class="lightbox-close" aria-label="Close">&times;</button>
+    <button type="button" class="lightbox-prev" aria-label="Previous">&#10094;</button>
+    <button type="button" class="lightbox-next" aria-label="Next">&#10095;</button>
+
+    <img id="lightbox-image" src="" alt="">
+    <div id="lightbox-title"></div>
+  </div>
+
 </section>
-
-<div
-  id="illustration-lightbox"
-  class="illustration-lightbox"
-  aria-hidden="true"
->
-  <button
-    type="button"
-    class="lightbox-prev"
-    aria-label="Previous image"
-  >
-    ‹
-  </button>
-
-  <button
-    type="button"
-    class="lightbox-close"
-    aria-label="Close image"
-  >
-    ×
-  </button>
-
-  <img
-    id="lightbox-image"
-    src=""
-    alt=""
-  >
-
-  <p id="lightbox-title"></p>
-
-  <button
-    type="button"
-    class="lightbox-next"
-    aria-label="Next image"
-  >
-    ›
-  </button>
-</div>

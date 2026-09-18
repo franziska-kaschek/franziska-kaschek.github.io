@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   /*
+   * =========================================================
    * Illustration Lightbox
+   * =========================================================
    */
 
   const cards = Array.from(
@@ -34,12 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let currentIndex = 0;
 
+
   function showImage(index) {
-    if (
-      cards.length === 0 ||
-      !image ||
-      !title
-    ) {
+
+    if (!cards.length) {
+      return;
+    }
+
+    if (!image || !title) {
       return;
     }
 
@@ -48,14 +52,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const card = cards[currentIndex];
 
-    image.src = card.dataset.image || "";
-    image.alt = card.dataset.title || "";
+    image.src =
+      card.getAttribute("data-image") || "";
+
+    image.alt =
+      card.getAttribute("data-title") || "";
 
     title.textContent =
-      card.dataset.title || "";
+      card.getAttribute("data-title") || "";
   }
 
+
   function openLightbox(index) {
+
     if (!lightbox) {
       return;
     }
@@ -70,8 +79,10 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
 
+
   function closeLightbox() {
-    if (!lightbox || !image || !title) {
+
+    if (!lightbox) {
       return;
     }
 
@@ -82,53 +93,95 @@ document.addEventListener("DOMContentLoaded", function () {
       "true"
     );
 
-    image.src = "";
-    image.alt = "";
-    title.textContent = "";
+    if (image) {
+      image.src = "";
+      image.alt = "";
+    }
+
+    if (title) {
+      title.textContent = "";
+    }
   }
 
-  if (
-    lightbox &&
-    image &&
-    title &&
-    closeButton &&
-    prevButton &&
-    nextButton &&
-    cards.length > 0
-  ) {
-    cards.forEach(function (card, index) {
 
-      card.addEventListener(
-        "click",
-        function () {
-          openLightbox(index);
-        }
-      );
+  /*
+   * =========================================================
+   * Bild anklickbar machen
+   * =========================================================
+   */
+
+  cards.forEach(function (card, index) {
+
+    card.addEventListener("click", function (event) {
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      openLightbox(index);
 
     });
+
+  });
+
+
+  /*
+   * =========================================================
+   * Lightbox Navigation
+   * =========================================================
+   */
+
+  if (prevButton) {
 
     prevButton.addEventListener(
       "click",
       function (event) {
+
+        event.preventDefault();
         event.stopPropagation();
+
         showImage(currentIndex - 1);
+
       }
     );
+
+  }
+
+
+  if (nextButton) {
 
     nextButton.addEventListener(
       "click",
       function (event) {
+
+        event.preventDefault();
         event.stopPropagation();
+
         showImage(currentIndex + 1);
+
       }
     );
 
+  }
+
+
+  if (closeButton) {
+
     closeButton.addEventListener(
       "click",
-      function () {
+      function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
         closeLightbox();
+
       }
     );
+
+  }
+
+
+  if (lightbox) {
 
     lightbox.addEventListener(
       "click",
@@ -141,94 +194,126 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     );
 
-    document.addEventListener(
-      "keydown",
-      function (event) {
-
-        if (
-          !lightbox.classList.contains("is-open")
-        ) {
-          return;
-        }
-
-        if (event.key === "ArrowLeft") {
-          event.preventDefault();
-          showImage(currentIndex - 1);
-        }
-
-        if (event.key === "ArrowRight") {
-          event.preventDefault();
-          showImage(currentIndex + 1);
-        }
-
-        if (event.key === "Escape") {
-          closeLightbox();
-        }
-
-      }
-    );
   }
 
+
   /*
-   * Show more / Show less per category
+   * =========================================================
+   * Keyboard
+   * =========================================================
    */
 
-  document
-    .querySelectorAll(".illustration-category")
-    .forEach(function (category) {
+  document.addEventListener(
+    "keydown",
+    function (event) {
 
-      const toggleButton =
-        category.querySelector(
-          ".illustrations-toggle"
-        );
-
-      if (!toggleButton) {
+      if (
+        !lightbox ||
+        !lightbox.classList.contains("is-open")
+      ) {
         return;
       }
 
-      const categoryCards =
-        category.querySelectorAll(
-          ".illustration-card"
-        );
 
-      toggleButton.addEventListener(
-        "click",
-        function () {
+      if (event.key === "ArrowLeft") {
 
-          const expanded =
-            toggleButton.dataset.expanded === "true";
+        event.preventDefault();
 
-          categoryCards.forEach(
-            function (card, index) {
+        showImage(currentIndex - 1);
 
-              if (index >= 4) {
+      }
 
-                if (expanded) {
-                  card.classList.add(
-                    "illustration-hidden"
-                  );
-                } else {
-                  card.classList.remove(
-                    "illustration-hidden"
-                  );
-                }
 
-              }
+      if (event.key === "ArrowRight") {
+
+        event.preventDefault();
+
+        showImage(currentIndex + 1);
+
+      }
+
+
+      if (event.key === "Escape") {
+
+        event.preventDefault();
+
+        closeLightbox();
+
+      }
+
+    }
+  );
+
+
+  /*
+   * =========================================================
+   * Show more / Show less
+   * =========================================================
+   */
+
+  const toggleButton =
+    document.querySelector(
+      ".illustrations-toggle"
+    );
+
+  if (toggleButton) {
+
+    const hiddenItems =
+      document.querySelectorAll(
+        ".illustration-preview-hidden"
+      );
+
+
+    toggleButton.addEventListener(
+      "click",
+      function () {
+
+        const expanded =
+          toggleButton.dataset.expanded === "true";
+
+
+        if (expanded) {
+
+          hiddenItems.forEach(
+            function (item) {
+
+              item.classList.add(
+                "illustration-preview-hidden"
+              );
 
             }
           );
 
           toggleButton.dataset.expanded =
-            expanded ? "false" : "true";
+            "false";
 
           toggleButton.textContent =
-            expanded
-              ? "Show more"
-              : "Show less";
+            "Show more";
+
+
+        } else {
+
+          hiddenItems.forEach(
+            function (item) {
+
+              item.classList.remove(
+                "illustration-preview-hidden"
+              );
+
+            }
+          );
+
+          toggleButton.dataset.expanded =
+            "true";
+
+          toggleButton.textContent =
+            "Show less";
 
         }
-      );
 
-    });
+      }
+    );
+
+  }
 
 });
