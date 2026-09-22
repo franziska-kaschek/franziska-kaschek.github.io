@@ -1,8 +1,10 @@
 name: "Franziska Kaschek"
 title: "Programmer & Illustrator"
 summary: >
-  I’m a programmer and illustrator who enjoys combining 
-  technology and visual creativity. I bring concepts to life through both code and illustration.
+  I’m a programmer and illustrator who enjoys combining technology 
+  and visual creativity. I bring concepts to life through both code 
+  and illustration. Here you’ll find my latest projects, artworks, 
+  and ways to get in touch.
 profile_image: "images/profile/profile.jpg"
 profile_layout: "classic" # Options: "modern" or "classic"
 profile_image_style: "rectangle" # Options: "circle" or "rectangle"
@@ -13,8 +15,9 @@ list:
 
 
 links:
+  - label: "Email"
+    url: "mailto:deine-email@example.com"
+
   - label: "GitHub"
     url: "https://github.com/Yajie-Xu/hugo-celadon"
 
-  - label: "Contact"
-    url: "mailto:deine-email@example.com"

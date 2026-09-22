@@ -341,35 +341,6 @@ body[data-theme="dark"] .morandi-nav {
   margin-bottom: 0.4rem;
 }
 
-.hero-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.text-link {
-  color: var(--color-primary);
-  font-weight: 600;
-  text-decoration: none;
-  position: relative;
-}
-
-.text-link::after {
-  content: "";
-  display: block;
-  height: 2px;
-  width: 100%;
-  background: currentColor;
-  transform-origin: left;
-  transform: scaleX(0);
-  transition: transform 0.2s ease;
-}
-
-.text-link:hover::after,
-.text-link:focus-visible::after {
-  transform: scaleX(1);
-}
-
 .section-heading {
   display: flex;
   align-items: center;
@@ -606,21 +577,34 @@ body[data-theme="dark"] .tag {
   padding: 0 1.5rem 1.5rem;
 }
 
+/* Card buttons – gleicher Stil wie "Show more" */
 .chip-link {
-  padding: 0.1rem 0.7rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-text);
   border-radius: 999px;
-  background: var(--color-primary);
-  color: var(--color-bg);
+
+  background: transparent;
+  color: var(--color-text);
+
+  font-family: inherit;
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   text-decoration: none;
-  transition: background 0.2s ease, transform 0.2s ease;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .chip-link:hover,
 .chip-link:focus-visible {
-  background: var(--color-highlight);
-  transform: translateY(-1px);
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
 }
 
 .writing-grid .grid-title {
@@ -1663,34 +1647,32 @@ body[data-theme="dark"] .chroma .mf {
 
 
 /* Show more button */
-
 .illustrations-toggle {
   margin-top: 1.5rem;
-
   padding: 0.5rem 1rem;
 
-  border: none;
+  border: 1px solid var(--color-text);
   border-radius: 999px;
 
-  background: var(--color-surface);
-  color: var(--color-primary);
+  background: transparent;
+  color: var(--color-text);
 
   font-family: inherit;
   font-weight: 600;
 
   cursor: pointer;
 
-  box-shadow: var(--shadow-soft);
-
   transition:
     color 0.2s ease,
+    border-color 0.2s ease,
     transform 0.2s ease;
 }
 
-
 .illustrations-toggle:hover,
 .illustrations-toggle:focus-visible {
-  color: var(--color-highlight);
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
   transform: translateY(-2px);
 }
 
@@ -1903,4 +1885,83 @@ body[data-theme="dark"] .chroma .mf {
     max-width: 280px;
     margin: 0 auto;
   }
+}
+
+/* =========================================================
+   Contact
+   ========================================================= */
+
+.contact-section {
+  padding-bottom: 80px;
+}
+
+.contact-content {
+  max-width: 650px;
+}
+
+.contact-content h3 {
+  margin: 0 0 15px;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.contact-content p {
+  margin: 0 0 35px;
+  line-height: 1.7;
+  max-width: 550px;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  padding: 0.5rem 1rem;
+
+  border: 1px solid var(--color-text);
+  border-radius: 999px;
+
+  background: transparent;
+  color: var(--color-text);
+
+  font-family: inherit;
+  font-weight: 600;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.contact-link:hover,
+.contact-link:focus-visible {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.contact-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.contact-label {
+  font-size: 0.85rem;
 }
