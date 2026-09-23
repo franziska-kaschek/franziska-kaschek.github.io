@@ -1,16 +1,14 @@
 text: |
   Hi, I’m Franziska — a trained **computer scientist** and self-taught **illustrator**.
 
-  I move between two worlds: the structured logic of software development and the free, tactile process of drawing.
-
   I enjoy building things, whether with code or a pencil, that are **useful** or bring **joy** to others.
 
   Here I share what I’m working on.
 
-  #### IT-Skills
+  ### IT-Skills
   Python · Java · Machine Learning · Computer Vision · Web Development · Git · Linux
 
-  #### Art-Skills
+  ### Art-Skills
   Traditional Drawing & Painting · Floral Pattern Design
 
 image: "images/about/profil2.jpg"   # ← Pfad zu deinem Bild anpassen

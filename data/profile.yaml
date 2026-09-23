@@ -1,10 +1,8 @@
 name: "Franziska Kaschek"
 title: "Programmer & Illustrator"
 summary: >
-  I’m a programmer and illustrator who enjoys combining technology 
-  and visual creativity. I bring concepts to life through both code 
-  and illustration. Here you’ll find my latest projects, artworks, 
-  and ways to get in touch.
+  I bring concepts to life through both code and illustration. Besides ways to get in touch, 
+  here you’ll find my latest work across the following areas:
 profile_image: "images/profile/profile.jpg"
 profile_layout: "classic" # Options: "modern" or "classic"
 profile_image_style: "rectangle" # Options: "circle" or "rectangle"
