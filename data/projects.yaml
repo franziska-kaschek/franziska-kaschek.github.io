@@ -1,6 +1,6 @@
 - title: "Unsupervised Anomaly Detection Tool for Shearographic Image Analysis"
   summary: >
-    Development of a computer vision pipeline that automatically identifies, localizes, 
+    Bachelor thesis: Development of a computer vision pipeline that automatically identifies, localizes, 
     and visualizes structural anomalies in images by utilizing the unsupervised learning 
     algorithm RD++. The entire pipeline was specifically validated and tested on a shearographic 
     dataset.
@@ -11,14 +11,16 @@
     - rd++
   links:
     - label: "GitHub"
-      url: "https://github.com/..."
+      url: "https://github.com/franziska-kaschek/rdpp-defect-detection-tool"
 
 
 - title: "KanjiReader: Mobile App for Automatic Japanese Text Recognition and Translation"  
   summary: >
-    Development of a mobile application for the automated recognition and translation of 
-    Japanese text in images using React Native and Expo. The app can also automatically 
-    add furigana to Japanese text.
+    Team project: Development of a mobile application for the automated 
+    recognition and translation of Japanese text in images using React Native 
+    and Expo. The app can also automatically add furigana to Japanese text. 
+    I was responsible for implementing the OCR functionality for detecting and 
+    extracting Japanese text from images.
   image: "/images/projects/kanjireader.png"
   tags:
     - app development
@@ -27,4 +29,4 @@
     - japanese
   links:
     - label: "GitHub"
-      url: "https://github.com/..."
+      url: "https://github.com/franziska-kaschek/kanjireader-app"
