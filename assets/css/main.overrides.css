@@ -1,0 +1,317 @@
+/* =========================================================
+   Celadon – custom overrides
+   Load AFTER the original main.css from the template.
+   Contains only deltas + new sections (artwork, about, contact).
+   ========================================================= */
+
+/* ---------- Tokens (override primary + extra tokens) ---------- */
+
+:root {
+  --color-primary: hsl(190, 20%, 58%);
+  --shadow-lift: 0 30px 60px rgba(107, 142, 155, 0.25);
+  --radius-pill: 999px;
+  --radius-card: 16px;
+  --transition-fast: 0.2s ease;
+}
+
+/* ---------- Brand / nav (larger, no dot) ---------- */
+
+.brand .dot {
+  display: none; /* original has a highlight dot – hide it */
+}
+
+.brand a {
+  font-family: Georgia, serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.nav-links a {
+  color: var(--color-text);
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+}
+
+.theme-toggle {
+  padding: 0.4rem 0.6rem;
+  font-size: 1.7rem;
+}
+
+/* ---------- Hero (wider classic layout) ---------- */
+
+.hero--classic {
+  grid-template-columns: 400px 1fr;
+}
+
+.hero-media--rectangle {
+  width: min(400px, 100%);
+}
+
+/* ---------- Remove unused original helpers (optional) ---------- */
+/* If you don't use hero-links / text-link in HTML, you can leave
+   the original rules; they do no harm. Uncomment to neutralize: */
+/*
+.hero-links,
+.text-link { display: none !important; }
+*/
+
+/* ---------- Shared outline buttons ---------- */
+/* Replaces original filled .chip-link and styles artwork/contact toggles */
+
+.chip-link,
+.artwork-toggle,
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-text);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.chip-link:hover,
+.chip-link:focus-visible,
+.artwork-toggle:hover,
+.artwork-toggle:focus-visible,
+.contact-link:hover,
+.contact-link:focus-visible {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.artwork-toggle {
+  margin-top: 1.5rem;
+}
+
+/* ---------- Artwork + lightbox (new) ---------- */
+
+.artwork-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 150px);
+  gap: 1rem;
+}
+
+.artwork-card {
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  background: var(--color-surface);
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 20px 45px rgba(107, 142, 155, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.artwork-card img {
+  display: block;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.artwork-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px rgba(107, 142, 155, 0.3);
+}
+
+.artwork-preview-hidden {
+  display: none;
+}
+
+.artwork-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.85);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px;
+}
+
+.artwork-lightbox.is-open {
+  display: flex;
+}
+
+.artwork-lightbox img {
+  display: block;
+  max-width: 90vw;
+  max-height: 85vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 40px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 60px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 20px;
+  z-index: 2;
+  transition: opacity 0.2s ease;
+}
+
+.lightbox-prev { left: 20px; }
+.lightbox-next { right: 20px; }
+
+.lightbox-prev:hover,
+.lightbox-next:hover,
+.lightbox-close:hover {
+  opacity: 0.7;
+}
+
+#lightbox-title {
+  margin-top: 15px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* ---------- About (new) ---------- */
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 3rem;
+  align-items: start;
+}
+
+.about-content {
+  max-width: 100%;
+}
+
+.about-content h4 {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin: 2rem 0 0.5rem;
+  font-weight: 600;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
+  object-fit: cover;
+  aspect-ratio: 3 / 4;
+}
+
+/* ---------- Contact (new) ---------- */
+
+.contact-section {
+  padding-bottom: 80px;
+}
+
+.contact-content {
+  max-width: 650px;
+}
+
+.contact-content h3 {
+  margin: 0 0 15px;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.contact-content p {
+  margin: 0 0 35px;
+  line-height: 1.7;
+  max-width: 550px;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.contact-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.contact-label {
+  font-size: 0.85rem;
+}
+
+/* ---------- Responsive overrides for new sections ---------- */
+
+@media (max-width: 900px) {
+  .artwork-grid {
+    grid-template-columns: repeat(3, 150px);
+  }
+}
+
+@media (max-width: 800px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .about-image {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .artwork-grid {
+    grid-template-columns: repeat(2, 120px);
+  }
+
+  .artwork-card img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 45px;
+    padding: 10px;
+  }
+
+  .lightbox-prev { left: 5px; }
+  .lightbox-next { right: 5px; }
+}

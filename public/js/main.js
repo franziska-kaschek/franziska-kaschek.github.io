@@ -2,10 +2,10 @@
   // <stdin>
   document.addEventListener("DOMContentLoaded", function() {
     const cards = Array.from(
-      document.querySelectorAll(".illustration-card")
+      document.querySelectorAll(".artwork-card")
     );
     const lightbox = document.getElementById(
-      "illustration-lightbox"
+      "artwork-lightbox"
     );
     const image = document.getElementById(
       "lightbox-image"
@@ -132,11 +132,11 @@
       }
     );
     const toggleButton = document.querySelector(
-      ".illustrations-toggle"
+      ".artwork-toggle"
     );
     if (toggleButton) {
       const hiddenItems = document.querySelectorAll(
-        ".illustration-preview-hidden"
+        ".artwork-preview-hidden"
       );
       toggleButton.addEventListener(
         "click",
@@ -146,7 +146,7 @@
             hiddenItems.forEach(
               function(item) {
                 item.classList.add(
-                  "illustration-preview-hidden"
+                  "artwork-preview-hidden"
                 );
               }
             );
@@ -156,7 +156,7 @@
             hiddenItems.forEach(
               function(item) {
                 item.classList.remove(
-                  "illustration-preview-hidden"
+                  "artwork-preview-hidden"
                 );
               }
             );

@@ -2,16 +2,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   /*
    * =========================================================
-   * Illustration Lightbox
+   * artwork Lightbox
    * =========================================================
    */
 
   const cards = Array.from(
-    document.querySelectorAll(".illustration-card")
+    document.querySelectorAll(".artwork-card")
   );
 
   const lightbox = document.getElementById(
-    "illustration-lightbox"
+    "artwork-lightbox"
   );
 
   const image = document.getElementById(
@@ -253,14 +253,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const toggleButton =
     document.querySelector(
-      ".illustrations-toggle"
+      ".artwork-toggle"
     );
 
   if (toggleButton) {
 
     const hiddenItems =
       document.querySelectorAll(
-        ".illustration-preview-hidden"
+        ".artwork-preview-hidden"
       );
 
 
@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function () {
             function (item) {
 
               item.classList.add(
-                "illustration-preview-hidden"
+                "artwork-preview-hidden"
               );
 
             }
@@ -297,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function () {
             function (item) {
 
               item.classList.remove(
-                "illustration-preview-hidden"
+                "artwork-preview-hidden"
               );
 
             }

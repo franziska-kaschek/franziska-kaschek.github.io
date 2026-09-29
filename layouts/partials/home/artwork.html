@@ -2,12 +2,12 @@
 {{ $config := .Config }}
 {{ $items := .Data }}
 
-<section id="{{ $section }}" class="illustrations-section section-block">
+<section id="{{ $section }}" class="artwork-section section-block">
 
   <div class="section-heading">
     <span class="bar"></span>
     <div>
-      <h2>{{ default "Illustrations" $config.title }}</h2>
+      <h2>{{ default "artwork" $config.title }}</h2>
     </div>
   </div>
 
@@ -26,20 +26,20 @@
     {{ $categoryItems := where $items "category" $category }}
 
     <div
-      class="illustration-category {{ if gt $categoryIndex 0 }}illustration-preview-hidden{{ end }}"
+      class="artwork-category {{ if gt $categoryIndex 0 }}artwork-preview-hidden{{ end }}"
     >
 
-      <h3 class="illustration-category-title">
+      <h3 class="artwork-category-title">
         {{ $category }}
       </h3>
 
-      <div class="illustrations-grid">
+      <div class="artwork-grid">
 
         {{ range $index, $item := $categoryItems }}
 
           <button
             type="button"
-            class="illustration-card {{ if and (eq $categoryIndex 0) (ge $index 4) }}illustration-preview-hidden{{ end }}"
+            class="artwork-card {{ if and (eq $categoryIndex 0) (ge $index 4) }}artwork-preview-hidden{{ end }}"
             data-image="{{ $item.image | relURL }}"
             data-title="{{ $item.title }}"
             aria-label="View {{ $item.title }} larger"
@@ -61,20 +61,20 @@
 
   <button
     type="button"
-    class="illustrations-toggle"
+    class="artwork-toggle"
     data-expanded="false"
   >
     Show more
   </button>
 
-  <!-- Illustration Lightbox -->
+  <!-- artwork Lightbox -->
   <div
-    id="illustration-lightbox"
-    class="illustration-lightbox"
+    id="artwork-lightbox"
+    class="artwork-lightbox"
     aria-hidden="true"
     role="dialog"
     aria-modal="true"
-    aria-label="Illustration preview"
+    aria-label="artwork preview"
   >
     <button type="button" class="lightbox-close" aria-label="Close">&times;</button>
     <button type="button" class="lightbox-prev" aria-label="Previous">&#10094;</button>
