@@ -1,64 +1,357 @@
 /* =========================================================
-   Celadon – custom overrides
-   Load AFTER the original main.css from the template.
-   Contains only deltas + new sections (artwork, about, contact).
+   Celadon – Custom Overrides
+   Loaded after the template's main.css.
+
+   Responsive customizations for:
+   - brand & navigation
+   - hero
+   - section headings
+   - shared buttons
+   - artwork & lightbox
+   - about
+   - contact
    ========================================================= */
 
-/* ---------- Tokens (override primary + extra tokens) ---------- */
+
+/* =========================================================
+   Design tokens
+   ========================================================= */
 
 :root {
   --color-primary: hsl(190, 20%, 58%);
-  --shadow-lift: 0 30px 60px rgba(107, 142, 155, 0.25);
+
+  --shadow-lift:
+    0 30px 60px rgba(107, 142, 155, 0.25);
+
+  --shadow-artwork:
+    0 20px 45px rgba(107, 142, 155, 0.35);
+
+  --shadow-artwork-hover:
+    0 30px 60px rgba(107, 142, 155, 0.3);
+
   --radius-pill: 999px;
   --radius-card: 16px;
+
   --transition-fast: 0.2s ease;
+  --transition-normal: 0.25s ease;
+
+  /* Responsive spacing */
+  --page-padding: clamp(1rem, 4vw, 2.5rem);
 }
 
-/* ---------- Brand / nav (larger, no dot) ---------- */
+
+/* =========================================================
+   Global responsive safeguards
+   ========================================================= */
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  max-width: 100%;
+}
+
+pre,
+code {
+  max-width: 100%;
+}
+
+
+/* =========================================================
+   Brand & navigation
+   ========================================================= */
 
 .brand .dot {
-  display: none; /* original has a highlight dot – hide it */
+  display: none;
 }
 
 .brand a {
   font-family: Georgia, serif;
-  font-size: 3.5rem;
+
+  /*
+    2rem  → small screens
+    6vw   → fluid scaling
+    3.5rem → desktop maximum
+  */
+  font-size: clamp(2rem, 6vw, 3.5rem);
+
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.02em;
 }
 
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.6rem, 2vw, 1.25rem);
+}
+
 .nav-links a {
   color: var(--color-text);
-  font-size: 1.4rem;
+
+  /*
+    Slightly smaller navigation text so the
+    navigation needs less horizontal space.
+  */
+  font-size: clamp(1rem, 2vw, 1.2rem);
+
   letter-spacing: 0.02em;
 }
 
 .theme-toggle {
   padding: 0.4rem 0.6rem;
-  font-size: 1.7rem;
+
+  font-size: clamp(1.35rem, 3vw, 1.7rem);
 }
 
-/* ---------- Hero (wider classic layout) ---------- */
+
+/* =========================================================
+   Desktop navigation layout
+   ========================================================= */
+
+/*
+  Keep the brand, navigation and theme button
+  in three separate areas.
+
+  This prevents the theme button from dropping
+  below the brand when the viewport becomes narrower.
+*/
+@media (min-width: 901px) {
+
+  .morandi-nav {
+    display: grid;
+
+    /*
+      Left   → brand
+      Center → navigation
+      Right  → theme toggle
+    */
+    grid-template-columns:
+      minmax(0, 1fr)
+      auto
+      minmax(0, 1fr);
+
+    align-items: center;
+
+    gap: 1rem;
+  }
+
+  .brand {
+    grid-column: 1;
+
+    justify-self: start;
+
+    min-width: 0;
+  }
+
+  .nav-links {
+    grid-column: 2;
+
+    justify-self: center;
+
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .theme-toggle {
+    grid-column: 3;
+
+    justify-self: end;
+
+    flex-shrink: 0;
+  }
+}
+
+
+/* =========================================================
+   Hamburger
+   ========================================================= */
+
+/*
+  Hidden on desktop.
+  Visible on screens up to 900px.
+*/
+.menu-toggle {
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  width: 50px;
+  height: 50px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+  color: var(--color-text);
+
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+
+  width: 40px;
+  height: 4px;
+
+  margin: 4px 0;
+
+  background: currentColor;
+
+  transition:
+    transform var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+
+/* =========================================================
+   Hero
+   ========================================================= */
 
 .hero--classic {
-  grid-template-columns: 400px 1fr;
+  /*
+    Desktop and tablet layout.
+
+    The image column can become slightly smaller
+    before the hero switches to one column.
+  */
+  grid-template-columns:
+    minmax(240px, 400px)
+    minmax(0, 1fr);
+
+  gap: clamp(1.5rem, 3vw, 3rem);
 }
 
 .hero-media--rectangle {
   width: min(400px, 100%);
 }
 
-/* ---------- Remove unused original helpers (optional) ---------- */
-/* If you don't use hero-links / text-link in HTML, you can leave
-   the original rules; they do no harm. Uncomment to neutralize: */
-/*
-.hero-links,
-.text-link { display: none !important; }
-*/
 
-/* ---------- Shared outline buttons ---------- */
-/* Replaces original filled .chip-link and styles artwork/contact toggles */
+/*
+  Prevent long text from forcing the grid wider.
+*/
+.hero--classic > *,
+.hero-copy,
+.hero-body {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   Section headings
+   ========================================================= */
+
+/*
+  Section headings consist of:
+  - vertical accent bar
+  - heading text
+
+  The heading stays next to the bar,
+  including on small screens.
+*/
+.section-heading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: 1rem;
+
+  margin: 4rem 0 2rem;
+}
+
+
+/*
+  Section heading text.
+*/
+.section-heading h2 {
+  margin: 0;
+  min-width: 0;
+
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+
+  line-height: 1.15;
+}
+
+
+/*
+  Vertical accent bar.
+*/
+.section-heading .bar {
+  flex: 0 0 5px;
+
+  width: 5px;
+  height: 42px;
+
+  border-radius: 12px;
+
+  background: var(--color-primary);
+}
+
+
+/* =========================================================
+   Section headings – mobile
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .section-heading {
+    /*
+      IMPORTANT:
+      Keep the bar beside the heading.
+      Do NOT switch to column layout.
+    */
+    flex-direction: row;
+
+    align-items: flex-start;
+
+    gap: 0.75rem;
+  }
+
+  .section-heading h2 {
+    /*
+      Slightly smaller on very narrow screens,
+      while remaining clearly larger than normal text.
+    */
+    font-size: clamp(1.7rem, 8vw, 2.2rem);
+
+    line-height: 1.15;
+  }
+
+  .section-heading .bar {
+    /*
+      Keep the bar fixed in width
+      so it cannot shrink or move.
+    */
+    flex: 0 0 4px;
+
+    width: 4px;
+
+    /*
+      Allow the bar to accommodate
+      a multi-line heading.
+    */
+    height: auto;
+    min-height: 2.2rem;
+  }
+}
+
+
+/* =========================================================
+   Shared outline buttons
+   ========================================================= */
 
 .chip-link,
 .artwork-toggle,
@@ -67,20 +360,26 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+
   padding: 0.5rem 1rem;
+
   border: 1px solid var(--color-text);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
+
   background: transparent;
   color: var(--color-text);
+
   font-family: inherit;
-  font-weight: 600;
   font-size: 0.85rem;
+  font-weight: 600;
   text-decoration: none;
+
   cursor: pointer;
+
   transition:
-    color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .chip-link:hover,
@@ -92,6 +391,7 @@
   background: transparent;
   color: var(--color-primary);
   border-color: var(--color-primary);
+
   transform: translateY(-2px);
 }
 
@@ -99,51 +399,91 @@
   margin-top: 1.5rem;
 }
 
-/* ---------- Artwork + lightbox (new) ---------- */
+
+/* =========================================================
+   Artwork
+   ========================================================= */
 
 .artwork-grid {
   display: grid;
-  grid-template-columns: repeat(4, 150px);
+
+  /*
+    Desktop:
+    4 columns of max. 150px.
+
+    auto-fit allows the grid to adapt when the
+    available width becomes smaller.
+  */
+  grid-template-columns:
+    repeat(auto-fit, minmax(120px, 150px));
+
   gap: 1rem;
+
+  justify-content: start;
 }
 
 .artwork-card {
   overflow: hidden;
+
+  width: 100%;
+  max-width: 150px;
+
   padding: 0;
   border: 0;
+  border-radius: var(--radius-card);
+
   background: var(--color-surface);
+
   cursor: pointer;
-  border-radius: 12px;
-  box-shadow: 0 20px 45px rgba(107, 142, 155, 0.35);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  box-shadow: var(--shadow-artwork);
+
+  transition:
+    transform var(--transition-normal),
+    box-shadow var(--transition-normal);
 }
 
 .artwork-card img {
   display: block;
-  width: 150px;
-  height: 150px;
+
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
   object-fit: cover;
 }
 
-.artwork-card:hover {
+.artwork-card:hover,
+.artwork-card:focus-visible {
   transform: translateY(-4px);
-  box-shadow: 0 30px 60px rgba(107, 142, 155, 0.3);
+
+  box-shadow: var(--shadow-artwork-hover);
 }
 
 .artwork-preview-hidden {
   display: none;
 }
 
+
+/* =========================================================
+   Artwork lightbox
+   ========================================================= */
+
 .artwork-lightbox {
-  display: none;
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.85);
+
+  display: none;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 40px;
+
+  /*
+    Smaller padding on small screens.
+  */
+  padding: clamp(1rem, 4vw, 40px);
+
+  background: rgba(0, 0, 0, 0.85);
 }
 
 .artwork-lightbox.is-open {
@@ -152,44 +492,64 @@
 
 .artwork-lightbox img {
   display: block;
-  max-width: 90vw;
-  max-height: 85vh;
+
   width: auto;
   height: auto;
+
+  max-width: 90vw;
+  max-height: 85vh;
+
   object-fit: contain;
 }
 
 .lightbox-close {
   position: absolute;
-  top: 20px;
-  right: 30px;
+  top: clamp(12px, 3vw, 20px);
+  right: clamp(15px, 4vw, 30px);
+  z-index: 2;
+
+  padding: 0;
   border: 0;
+
   background: transparent;
   color: #fff;
-  font-size: 40px;
+
+  font-size: clamp(30px, 7vw, 40px);
   line-height: 1;
+
   cursor: pointer;
-  z-index: 2;
 }
 
 .lightbox-prev,
 .lightbox-next {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  z-index: 2;
+
+  padding: clamp(8px, 2vw, 20px);
+
   border: none;
+
   background: transparent;
   color: #fff;
-  font-size: 60px;
+
+  font-size: clamp(40px, 8vw, 60px);
   line-height: 1;
+
   cursor: pointer;
-  padding: 20px;
-  z-index: 2;
-  transition: opacity 0.2s ease;
+
+  transform: translateY(-50%);
+
+  transition: opacity var(--transition-fast);
 }
 
-.lightbox-prev { left: 20px; }
-.lightbox-next { right: 20px; }
+.lightbox-prev {
+  left: clamp(5px, 3vw, 20px);
+}
+
+.lightbox-next {
+  right: clamp(5px, 3vw, 20px);
+}
 
 .lightbox-prev:hover,
 .lightbox-next:hover,
@@ -198,61 +558,100 @@
 }
 
 #lightbox-title {
+  max-width: 90vw;
+
   margin-top: 15px;
+
   color: #fff;
-  font-size: 1rem;
+
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+
+  text-align: center;
 }
 
-/* ---------- About (new) ---------- */
+
+/* =========================================================
+   About
+   ========================================================= */
 
 .about-layout {
   display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 3rem;
+
+  /*
+    Image column remains flexible instead of
+    forcing a fixed width.
+  */
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(220px, 280px);
+
+  gap: clamp(2rem, 5vw, 3rem);
+
   align-items: start;
 }
 
 .about-content {
   max-width: 100%;
+  min-width: 0;
 }
 
 .about-content h4 {
+  margin: 2rem 0 0.5rem;
+
+  color: var(--color-secondary);
+
   font-size: 0.8rem;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-secondary);
-  margin: 2rem 0 0.5rem;
-  font-weight: 600;
+}
+
+.about-image {
+  min-width: 0;
 }
 
 .about-image img {
+  display: block;
+
   width: 100%;
-  border-radius: 20px;
-  box-shadow: var(--shadow-soft);
-  object-fit: cover;
+  max-width: 280px;
+
   aspect-ratio: 3 / 4;
+
+  object-fit: cover;
+
+  border-radius: 20px;
+
+  box-shadow: var(--shadow-soft);
 }
 
-/* ---------- Contact (new) ---------- */
+
+/* =========================================================
+   Contact
+   ========================================================= */
 
 .contact-section {
-  padding-bottom: 80px;
+  padding-bottom: clamp(3rem, 8vw, 80px);
 }
 
 .contact-content {
+  width: 100%;
   max-width: 650px;
 }
 
 .contact-content h3 {
   margin: 0 0 15px;
-  font-size: 1.8rem;
+
+  font-size: clamp(1.5rem, 4vw, 1.8rem);
   font-weight: 500;
 }
 
 .contact-content p {
-  margin: 0 0 35px;
-  line-height: 1.7;
   max-width: 550px;
+
+  margin: 0 0 35px;
+
+  line-height: 1.7;
 }
 
 .contact-links {
@@ -265,6 +664,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  flex-shrink: 0;
 }
 
 .contact-icon svg {
@@ -276,42 +677,476 @@
   font-size: 0.85rem;
 }
 
-/* ---------- Responsive overrides for new sections ---------- */
+
+/* =========================================================
+   Tablet
+   ========================================================= */
 
 @media (max-width: 900px) {
+
+  /*
+    The hero stays exactly like the desktop layout
+    between 900px and 801px.
+    Only the navigation changes at this breakpoint.
+  */
+
   .artwork-grid {
-    grid-template-columns: repeat(3, 150px);
+    grid-template-columns:
+      repeat(auto-fit, minmax(120px, 150px));
+  }
+
+
+  /* =======================================================
+     Navigation
+     ======================================================= */
+
+  .morandi-nav {
+    position: sticky;
+
+    top: 1rem;
+    z-index: 10;
+
+    display: grid;
+
+    /*
+      Three columns:
+      left   → brand
+      center → hamburger
+      right  → theme toggle
+    */
+    grid-template-columns: 1fr auto 1fr;
+
+    align-items: center;
+
+    gap: 0.75rem;
+  }
+
+
+  /*
+    Brand stays on the left.
+  */
+  .brand {
+    grid-column: 1;
+
+    justify-self: start;
+
+    min-width: 0;
+  }
+
+
+  /*
+    Hamburger stays exactly in the center.
+  */
+  .menu-toggle {
+    display: inline-flex;
+
+    grid-column: 2;
+
+    justify-self: center;
+
+    flex-shrink: 0;
+  }
+
+
+  /*
+    Theme toggle stays on the right.
+  */
+  .theme-toggle {
+    grid-column: 3;
+
+    justify-self: end;
+
+    flex-shrink: 0;
+  }
+
+
+  /*
+    Hide navigation links until the hamburger is opened.
+  */
+  .nav-links {
+    position: absolute;
+
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+
+    display: none;
+
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 0;
+
+    padding: 0.75rem;
+
+    background: var(--color-surface);
+
+    border-radius: var(--radius-card);
+
+    box-shadow: var(--shadow-lift);
+
+    z-index: 1000;
+  }
+
+  .nav-links.is-open {
+    display: flex;
+  }
+
+  .nav-links a {
+    display: block;
+
+    width: 100%;
+
+    padding: 0.8rem 1rem;
+
+    text-align: center;
   }
 }
 
+
+/* =========================================================
+   Hamburger → X
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .menu-toggle.is-open span:nth-child(1) {
+    transform: translateY(12px) rotate(45deg);
+  }
+
+  .menu-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle.is-open span:nth-child(3) {
+    transform: translateY(-12px) rotate(-45deg);
+  }
+}
+
+
+/* =========================================================
+   Small screens
+   ========================================================= */
+
 @media (max-width: 800px) {
+
+  /*
+    Hero becomes one column below 800px.
+    This prevents the text from being pushed below
+    the image at medium tablet widths.
+  */
+  .hero--classic {
+    grid-template-columns: 1fr;
+
+    justify-items: center;
+  }
+
+
+  /*
+    Center the hero image.
+  */
+  .hero--classic .hero-media {
+    width: 100%;
+
+    justify-self: center;
+
+    text-align: center;
+  }
+
+  .hero-media--rectangle {
+    width: min(400px, 100%);
+
+    margin-inline: auto;
+  }
+
+
+  /*
+    Center the hero heading and subtitle.
+  */
+  .hero--classic .hero-intro {
+    width: 100%;
+
+    justify-self: center;
+
+    text-align: center;
+  }
+
+
+  /*
+    Keep the main hero text left-aligned.
+  */
+  .hero--classic .hero-body {
+    width: 100%;
+
+    justify-self: center;
+
+    text-align: left;
+  }
+
+  .hero-copy {
+    width: 100%;
+  }
+
+
+  /*
+    Keep all hero elements in the first grid column.
+  */
+  .hero--classic .hero-media,
+  .hero--classic .hero-intro,
+  .hero--classic .hero-body {
+    grid-column: 1;
+  }
+
+
+  /* =======================================================
+     About
+     ======================================================= */
+
   .about-layout {
     grid-template-columns: 1fr;
+
     gap: 2rem;
   }
 
   .about-image {
     max-width: 280px;
-    margin: 0 auto;
+
+    margin-inline: auto;
+  }
+
+  .about-image img {
+    max-width: 280px;
+  }
+
+
+  /* =======================================================
+     Contact
+     ======================================================= */
+
+  .contact-links {
+    gap: 0.6rem;
   }
 }
 
+
+/* =========================================================
+   Mobile
+   ========================================================= */
+
 @media (max-width: 600px) {
+
+  /*
+    Navigation remains a three-column layout:
+    brand left, hamburger center, theme toggle right.
+  */
+  .morandi-nav {
+    padding: 0.75rem 1rem;
+
+    border-radius: var(--radius-card);
+  }
+
+  .brand {
+    min-width: 0;
+  }
+
+  .brand a {
+    font-size: 2.2rem;
+  }
+
+  .menu-toggle {
+    align-self: center;
+  }
+
+  .theme-toggle {
+    align-self: center;
+
+    padding: 0.35rem 0.5rem;
+
+    font-size: 1.4rem;
+  }
+
+
+  /*
+    Mobile navigation remains controlled by the hamburger.
+  */
+  .nav-links {
+    left: 0;
+    right: 0;
+
+    width: 100%;
+  }
+
+  .nav-links a {
+    width: 100%;
+
+    padding: 0.8rem 1rem;
+
+    text-align: center;
+
+    font-size: 0.9rem;
+  }
+
+
+  /* =======================================================
+     Hero
+     ======================================================= */
+
+  .hero--classic {
+    gap: 1.5rem;
+  }
+
+
+  /*
+    Keep heading and subtitle centered.
+  */
+  .hero--classic .hero-intro {
+    text-align: center;
+  }
+
+
+  /*
+    Keep the main text left-aligned.
+  */
+  .hero--classic .hero-body {
+    text-align: left;
+  }
+
+
+  /*
+    Center the image and keep it responsive.
+  */
+  .hero-media--rectangle {
+    width: 100%;
+
+    max-width: 320px;
+
+    margin-inline: auto;
+  }
+
+
+  /* =======================================================
+     Shared buttons
+     ======================================================= */
+
+  .chip-link,
+  .artwork-toggle,
+  .contact-link {
+    max-width: 100%;
+
+    padding: 0.5rem 0.85rem;
+
+    font-size: 0.8rem;
+  }
+
+
+  /* =======================================================
+     Artwork
+     ======================================================= */
+
   .artwork-grid {
-    grid-template-columns: repeat(2, 120px);
+    grid-template-columns:
+      repeat(2, minmax(0, 120px));
+
+    gap: 0.75rem;
   }
 
-  .artwork-card img {
-    width: 120px;
-    height: 120px;
+  .artwork-card {
+    max-width: 120px;
   }
 
-  .lightbox-prev,
-  .lightbox-next {
-    font-size: 45px;
-    padding: 10px;
+
+  /* =======================================================
+     Lightbox
+     ======================================================= */
+
+  .artwork-lightbox {
+    padding: 1rem;
   }
 
-  .lightbox-prev { left: 5px; }
-  .lightbox-next { right: 5px; }
+  .artwork-lightbox img {
+    max-width: 94vw;
+
+    max-height: 78vh;
+  }
+
+
+  /* =======================================================
+     Contact
+     ======================================================= */
+
+  .contact-links {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .contact-link {
+    width: 100%;
+  }
+
+
+  /* =======================================================
+     About
+     ======================================================= */
+
+  .about-image {
+    max-width: 240px;
+  }
+
+  .about-image img {
+    max-width: 240px;
+  }
+}
+
+
+/* =========================================================
+   Very small phones
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .brand a {
+    font-size: 2rem;
+  }
+
+  .nav-links {
+    gap: 0.4rem 0.7rem;
+  }
+
+  .nav-links a {
+    font-size: 0.9rem;
+  }
+
+  .artwork-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .artwork-card {
+    max-width: none;
+  }
+
+  .contact-link {
+    padding-inline: 0.7rem;
+  }
+}
+
+
+/* =========================================================
+   Prevent horizontal overflow
+   ========================================================= */
+
+html,
+body {
+  max-width: 100%;
+
+  overflow-x: clip;
+}
+
+.hero,
+.about-layout,
+.contact-content,
+.markdown-body,
+.article-content {
+  min-width: 0;
 }

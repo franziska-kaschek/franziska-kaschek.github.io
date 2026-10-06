@@ -1,8 +1,8 @@
 - label: "Email"
   url: "mailto:franziska@kaschek.com"
 
-- label: "GitHub"
-  url: "https://github.com/franziska-kaschek"
+#- label: "GitHub"
+#  url: "https://github.com/franziska-kaschek"
 
-- label: "LinkedIn"
-  url: "https://linkedin.com/deinname"
+#- label: "LinkedIn"
+#  url: "https://linkedin.com/deinname"
