@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default site.Language.Lang }}">
+
+<head>
+  {{ partial "head.html" . }}
+</head>
+
+<body data-theme="light">
+
+  <div class="page-shell">
+
+    <nav class="morandi-nav">
+
+      <div class="brand">
+        <a href="{{ site.Home.Permalink }}">FK</a>
+      </div>
+
+      <div class="nav-links" id="main-navigation">
+
+        <a href="{{ site.Home.Permalink }}">
+          Home
+        </a>
+
+        {{ range $section := site.Params.homepage.sections }}
+
+          {{ $sectionStr := printf "%v" $section }}
+          {{ $config := index site.Params.homepage $sectionStr }}
+
+          {{ if and $config (default true $config.enable) }}
+
+            {{ if ne $config.showInMenu false }}
+
+              <a href="{{ site.Home.Permalink }}#{{ $sectionStr }}">
+                {{ $config.title | default (humanize $sectionStr) }}
+              </a>
+
+            {{ end }}
+
+          {{ end }}
+
+        {{ end }}
+
+      </div>
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="main-navigation"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <button
+        class="theme-toggle"
+        data-theme-toggle
+        aria-label="Toggle theme"
+      >
+        <span class="icon" data-icon-sun>☼</span>
+        <span class="icon" data-icon-moon>☾</span>
+      </button>
+
+    </nav>
+
+
+    <main class="main-container">
+
+      {{ block "main" . }}
+      {{ end }}
+
+    </main>
+
+
+    {{ partial "footer.html" . }}
+
+  </div>
+
+
+  {{ partial "foot/scripts.html" . }}
+
+
+  <button
+    id="scroll-top"
+    aria-label="Go to Top"
+  >
+    ↑
+  </button>
+
+
+  <script>
+    // Math rendering
+    document.addEventListener("DOMContentLoaded", function () {
+      if (typeof renderMathInElement === "function") {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {
+              left: "$$",
+              right: "$$",
+              display: true
+            },
+            {
+              left: "\\[",
+              right: "\\]",
+              display: true
+            },
+            {
+              left: "$",
+              right: "$",
+              display: false
+            },
+            {
+              left: "\\(",
+              right: "\\)",
+              display: false
+            }
+          ]
+        });
+      }
+    });
+
+
+    // Code copy buttons
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll("pre code").forEach(function (code) {
+
+        const pre = code.parentElement;
+
+        if (!pre || pre.querySelector(".code-copy")) {
+          return;
+        }
+
+        const button = document.createElement("button");
+
+        button.className = "code-copy";
+        button.type = "button";
+        button.textContent = "Copy";
+
+        button.addEventListener("click", function () {
+
+          navigator.clipboard.writeText(code.textContent);
+
+          button.textContent = "Copied";
+
+          setTimeout(function () {
+            button.textContent = "Copy";
+          }, 1500);
+
+        });
+
+        pre.appendChild(button);
+
+      });
+    });
+
+
+    // Scroll to top
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const scrollTopButton =
+        document.getElementById("scroll-top");
+
+      if (!scrollTopButton) {
+        return;
+      }
+
+      window.addEventListener("scroll", function () {
+
+        if (window.scrollY > 400) {
+          scrollTopButton.classList.add("is-visible");
+        } else {
+          scrollTopButton.classList.remove("is-visible");
+        }
+
+      });
+
+      scrollTopButton.addEventListener("click", function () {
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>
