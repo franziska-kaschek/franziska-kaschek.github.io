@@ -1,4 +1,4 @@
-baseURL = 'https://franziska-kaschek.github.io/my-portfolio/'
+baseURL = 'https://franziska-kaschek.github.io/'
 languageCode = 'en-us'
 title = 'Franziska Kaschek'
 theme = 'celadon'
