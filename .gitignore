@@ -1,0 +1,18 @@
+# Hugo generated site
+/public/
+/resources/_gen/
+/.hugo_build.lock
+
+# Hugo example site
+exampleSite/public/
+exampleSite/resources/
+
+# OS / system files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
