@@ -1,3 +1,4 @@
+```html
 {{ $section := .Section }}
 {{ $config := .Config }}
 {{ $items := .Data }}
@@ -48,6 +49,9 @@
               src="{{ $item.image | relURL }}"
               alt="{{ $item.title }}"
               loading="lazy"
+              decoding="async"
+              width="210"
+              height="297"
             >
           </button>
 
@@ -67,14 +71,14 @@
     Show more
   </button>
 
-  <!-- artwork Lightbox -->
+  <!-- Artwork lightbox -->
   <div
     id="artwork-lightbox"
     class="artwork-lightbox"
     aria-hidden="true"
     role="dialog"
     aria-modal="true"
-    aria-label="artwork preview"
+    aria-label="Artwork preview"
   >
     <button type="button" class="lightbox-close" aria-label="Close">&times;</button>
     <button type="button" class="lightbox-prev" aria-label="Previous">&#10094;</button>
@@ -85,3 +89,4 @@
   </div>
 
 </section>
+```
