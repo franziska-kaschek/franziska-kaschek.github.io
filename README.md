@@ -1,10 +1,10 @@
 # Personal Website
 
-This repository contains the source files for my personal website.
+This repository contains the source files for a personal website.
 
 The website is based on the [Celadon theme](https://github.com/Yajie-Xu/hugo-celadon), which uses [Hugo](https://gohugo.io/) as its static site generator.
 
-The website presents my profile, projects, artwork, and other information about me.
+The website features projects, artwork and personal information.
 
 **Website:** [franziska-kaschek.github.io](https://franziska-kaschek.github.io/)
 
@@ -16,4 +16,4 @@ The website presents my profile, projects, artwork, and other information about 
 
 ## Acknowledgements
 
-This website uses the [Celadon theme](https://github.com/Yajie-Xu/hugo-celadon) by Yajie Xu. Please refer to the original repository for further information about the theme and its licensing.
+This website uses the [Celadon theme by Yajie Xu](https://github.com/Yajie-Xu/hugo-celadon). Further information about the theme and its licensing is available in the original repository.
