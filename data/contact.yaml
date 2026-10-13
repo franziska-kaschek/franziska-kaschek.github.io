@@ -1,5 +1,5 @@
-#- label: "Email"
-#  url: "mailto:franziska@kaschek.com"
+- label: "Email"
+  url: "mailto:hellokaschek@disroot.org"
 
 - label: "GitHub"
   url: "https://github.com/franziska-kaschek"
