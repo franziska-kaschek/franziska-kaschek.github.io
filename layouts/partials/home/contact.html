@@ -1,3 +1,4 @@
+
 {{ $section := .Section }}
 {{ $config := .Config }}
 {{ $items := .Data }}
@@ -60,7 +61,13 @@
             </span>
           {{ end }}
 
-          <span class="contact-label">{{ .label }}</span>
+          <span class="contact-label">
+            {{ if eq .label "Email" }}
+              {{ strings.TrimPrefix "mailto:" .url }}
+            {{ else }}
+              {{ .label }}
+            {{ end }}
+          </span>
 
         </a>
 
